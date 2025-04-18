@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.dev;
+package java.uk.gov.hmcts.reform.dev;
 
 import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +23,10 @@ class TaskTest {
 
 	@BeforeEach
     void setUp() {
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		validator = factory.getValidator();
-	}
+        try (ValidatorFactory factory = Validation.buildDefaultValidatorFactory()) {
+            validator = factory.getValidator();
+        }
+    }
 
 	private Task createValidTask() {
 		return new Task(
@@ -125,34 +126,5 @@ class TaskTest {
 		assertFalse(violations.isEmpty());
 		assertTrue(violations.stream().anyMatch(v -> v.getPropertyPath().toString().equals("dueDate")));
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	}
-}
+
