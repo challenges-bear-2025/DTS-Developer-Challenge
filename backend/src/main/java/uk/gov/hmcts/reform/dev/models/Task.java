@@ -1,6 +1,7 @@
-﻿package uk.gov.hmcts.reform.dev.models;
+package uk.gov.hmcts.reform.dev.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -25,6 +26,67 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
+    @NotNull(message = "Due date must not be null")
+    @FutureOrPresent(message = "Due date must be in the present or future")
     private LocalDateTime dueDate;
 
+    public Task() {}
+
+    public Task(String title, String description, TaskStatus status, LocalDateTime dueDate) {
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "ID=" + ID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", dueDate=" + dueDate +
+                '}';
+    }
 }
