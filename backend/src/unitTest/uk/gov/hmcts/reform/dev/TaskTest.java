@@ -1,4 +1,4 @@
-package java.uk.gov.hmcts.reform.dev;
+package uk.gov.hmcts.reform.dev;
 
 import jakarta.validation.ConstraintViolation;
 import org.junit.jupiter.api.BeforeEach;
