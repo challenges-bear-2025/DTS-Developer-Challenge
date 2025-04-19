@@ -7,17 +7,15 @@ import uk.gov.hmcts.reform.dev.models.TaskStatus;
 import uk.gov.hmcts.reform.dev.repository.TaskRepository;
 import uk.gov.hmcts.reform.dev.service.TaskService;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-class TaskServiceTest {
+class TaskServiceUnitTest {
 
     private TaskRepository taskRepository;
     private TaskService taskService;
