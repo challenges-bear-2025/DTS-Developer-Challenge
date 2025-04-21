@@ -1,0 +1,8 @@
+$govuk-assets-path: '/assets/';
+//$govuk-font-family: "GDS Transport", arial, sans-serif;
+
+@import 'govuk-frontend/dist/govuk/all';
+
+body {
+    margin: 0;
+}
