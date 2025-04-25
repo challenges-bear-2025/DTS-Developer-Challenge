@@ -1,8 +1,180 @@
 $govuk-assets-path: '/assets/';
-//$govuk-font-family: "GDS Transport", arial, sans-serif;
+$govuk-font-family: "GDS Transport", arial, sans-serif;
+$govuk-header-vertical-spacing-value: 2;
+@import 'govuk-frontend/dist/govuk/index';
 
-@import 'govuk-frontend/dist/govuk/all';
+// ================================
+// Custom GOV.UK Header Styles
+// ================================
 
-body {
-    margin: 0;
+.header-logo {
+  float:left;
+  width:80%;
 }
+
+.header-user {
+  @include govuk-responsive-margin($govuk-header-vertical-spacing-value, "bottom");
+  float:left;
+  width: 20%;
+  height: 30px;
+  box-sizing: border-box;
+
+}
+
+.header-user-text {
+  $product-name-offset: if($govuk-new-typography-scale, 14px, 10px);
+    $product-name-offset-tablet: 11px;
+
+    @include govuk-font-size($size: 16, $line-height: 1);
+    @include govuk-typography-weight-regular;
+    display: inline-table;
+
+    margin-top: 14px;
+    margin-bottom: 0;
+
+    @-moz-document url-prefix() {
+      margin-top: $product-name-offset - 0.5px;
+    }
+
+    @include govuk-media-query($from: tablet) {
+      margin-top: $product-name-offset-tablet;
+      @-moz-document url-prefix() {
+        margin-top: $product-name-offset-tablet - 0.5px;
+      }
+    }
+}
+
+.govuk-link-logout {
+  @include govuk-link-style-inverse;
+  @include govuk-typography-weight-bold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+
+    @if $govuk-link-underline-offset {
+      text-underline-offset: $govuk-link-underline-offset;
+    }
+  }
+
+  &:focus {
+    @include govuk-focused-text;
+  }
+}
+
+// ================================
+// Custom GOV.UK Task Item Styles
+// ================================
+
+.task-item {
+    background-color: govuk-colour("white");
+    border: 1px solid govuk-colour("mid-grey");
+    //border-radius: 4px;
+    margin-bottom: govuk-spacing(4);
+  
+    &-icon {
+      svg {
+        width: 1.5rem; // ~20px
+        height: 1.5rem;
+      }
+  
+      &--completed {
+        color: govuk-colour("green");
+      }
+  
+      &--in-progress {
+        color: govuk-colour("blue");
+      }
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: govuk-spacing(3);
+      cursor: pointer;
+      &--overdue {
+        border-left: 4px solid govuk-colour("red");
+      }
+    }
+  
+    &-title {
+      @include govuk-font($size: 19, $weight: bold);
+      flex: 1;
+      min-width: 0;
+      margin-bottom: govuk-spacing(1);
+    }
+  
+    &-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: govuk-spacing(2);
+  
+      &--due {
+        @include govuk-font($size: 16);
+        color: govuk-colour("dark-grey");
+  
+        &--overdue {
+          color: govuk-colour("red");
+          font-weight: bold;
+        }
+      }
+    }
+  
+    &-actions {
+      display: flex;
+      flex-shrink: 0;
+      gap: govuk-spacing(2);
+      align-items: center;
+  
+      .govuk-button--icon {
+        background: none;
+        padding: 0;
+        border: none;
+        color: govuk-colour("dark-grey");
+  
+        &:hover {
+          color: govuk-colour("black");
+        }
+  
+        &--delete:hover {
+          color: govuk-colour("red");
+        }
+      }
+    }
+  
+    &-details {
+      padding: govuk-spacing(3);
+      border-top: 1px solid govuk-colour("mid-grey");
+      display: flex;
+      justify-content: space-between; /* Ensures space between the description/status and delete button */
+
+      &-section {
+        padding: govuk-spacing(0);
+      }
+
+      &--left {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &--right {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+
+      .govuk-button-group {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+      }
+
+      .task-button--active {
+        background-color: govuk-colour("blue");
+        color: govuk-colour("white");
+        font-weight: bold;
+      }
+    }
+  }
