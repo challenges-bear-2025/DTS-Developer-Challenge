@@ -1,24 +1,31 @@
 let mockTasks = [
   {
     ID: 1,
-    title: "Task One",
-    description: "First task description",
-    status: "Pending",
+    title: "Review case documents",
+    description: "Review all documents for the Smith vs. Jones case before the hearing.",
+    status: "InProgress",
     dueDate: generateDueDate(1)
   },
   {
     ID: 2,
-    title: "Task Two",
-    description: "Second task description",
-    status: "InProgress",
-    dueDate: generateDueDate(2)
+    title: "Prepare court filing",
+    description: "Draft and prepare court filing for the Johnson case.",
+    status: "Pending",
+    dueDate: generateDueDate(5)
   },
   {
     ID: 3,
-    title: "Task Three",
-    description: "Third task description",
-    status: "Completed",
-    dueDate: generateDueDate(3)
+    title: "Schedule client meeting",
+    description: "Arrange a meeting with Mrs. Williams to discuss case progress.",
+    status: "Pending",
+    dueDate: generateDueDate(8)
+  },
+  {
+    ID: 4,
+    title: "Update case management system",
+    description: "Enter recent developments in the Thompson case into the system.",
+    status: "Pending",
+    dueDate: generateDueDate(10)
   },
 ];
 
