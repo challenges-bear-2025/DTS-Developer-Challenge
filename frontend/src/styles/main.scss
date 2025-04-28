@@ -1,5 +1,4 @@
 $govuk-assets-path: '/assets/';
-$govuk-font-family: "GDS Transport", arial, sans-serif;
 $govuk-header-vertical-spacing-value: 2;
 @import 'govuk-frontend/dist/govuk/index';
 
@@ -18,7 +17,6 @@ $govuk-header-vertical-spacing-value: 2;
   width: 20%;
   height: 30px;
   box-sizing: border-box;
-
 }
 
 .header-user-text {
@@ -63,18 +61,32 @@ $govuk-header-vertical-spacing-value: 2;
 }
 
 // ================================
+// Custom GOV.UK Task Form Styles
+// ================================
+
+.task-form {
+  background-color: govuk-colour("white");
+    border: 4px solid govuk-colour("green");
+    margin-bottom: govuk-spacing(4);
+    padding: govuk-spacing(3);
+}
+
+.task-form-required {
+  color: govuk-colour("red");
+}
+ 
+// ================================
 // Custom GOV.UK Task Item Styles
 // ================================
 
 .task-item {
     background-color: govuk-colour("white");
     border: 1px solid govuk-colour("mid-grey");
-    //border-radius: 4px;
     margin-bottom: govuk-spacing(4);
   
     &-icon {
       svg {
-        width: 1.5rem; // ~20px
+        width: 1.5rem; 
         height: 1.5rem;
       }
   
@@ -148,7 +160,7 @@ $govuk-header-vertical-spacing-value: 2;
       padding: govuk-spacing(3);
       border-top: 1px solid govuk-colour("mid-grey");
       display: flex;
-      justify-content: space-between; /* Ensures space between the description/status and delete button */
+      justify-content: space-between; 
 
       &-section {
         padding: govuk-spacing(0);
