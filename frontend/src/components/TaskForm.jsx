@@ -1,7 +1,16 @@
+/**
+ * TaskForm component for adding a new task.
+ * This component contains a form that allows users to add a new task,
+ * including fields for the task title, description, and due date (day, month, year, and time).
+ * It handles form validation and submits the data if valid.
+ * The form displays error messages if the user enters invalid data.
+ */
+
 import { useState } from "react";
 import { formatDate, validateDate } from "../lib/utils";
 
 export default function TaskForm({ onSubmit, onCancel }) {
+  // State hooks for storing form data and errors
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status] = useState("Pending");
@@ -11,6 +20,15 @@ export default function TaskForm({ onSubmit, onCancel }) {
   const [dueTime, setDueTime] = useState("");
   const [errors, setErrors] = useState({});
 
+  /**
+   * Validates the form data before submission.
+   *
+   * This function checks that the task title is provided, that the due date is in the future,
+   * and that the time format is correct. It also checks if the entered date is a valid date.
+   * It updates the errors state with any validation issues.
+   *
+   * @returns {boolean} Returns true if the form is valid, otherwise false.
+   */
   const validateForm = () => {
     const newErrors = {};
 
@@ -68,6 +86,16 @@ export default function TaskForm({ onSubmit, onCancel }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  /**
+   * Handles the form submission.
+   *
+   * This function is called when the user submits the form. It first validates the form.
+   * If the form is valid, it formats the due date and time and passes the task data to the onSubmit callback.
+   *
+   * @param {React.FormEvent} e - The form submit event.
+   *
+   * @returns {void} This function does not return any value.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) {
@@ -100,6 +128,7 @@ export default function TaskForm({ onSubmit, onCancel }) {
           <h1 className="govuk-fieldset__heading">Add New Task</h1>
         </legend>
 
+        {/* Task title input field */}
         <div className="govuk-form-group">
           <label className="govuk-label" htmlFor="task-title">
             Task Title <span className="task-form-required">*</span>
@@ -118,6 +147,7 @@ export default function TaskForm({ onSubmit, onCancel }) {
           )}
         </div>
 
+        {/* Task description input field */}
         <div className="govuk-form-group">
           <label className="govuk-label" htmlFor="task-description">
             Task Description
@@ -132,7 +162,8 @@ export default function TaskForm({ onSubmit, onCancel }) {
             autoComplete="task-description"
           />
         </div>
-
+        
+        {/* Task date and time input field */}
         <div
           className={`govuk-form-group ${
             errors.dueDate ? "govuk-form-group--error" : ""

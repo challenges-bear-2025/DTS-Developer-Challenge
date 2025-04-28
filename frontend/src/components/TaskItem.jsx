@@ -1,3 +1,9 @@
+/**
+ * TaskItem component represents an individual task in a task list.
+ * It allows users to view task details, change status, and delete the task.
+ * It also displays information such as the task's due date and status.
+ */
+
 import { useState } from "react";
 import { formatDateTimeZone } from "../lib/utils";
 import DeleteConfirmationModal from "./modal/DeleteConfirmationModal";
@@ -10,10 +16,19 @@ import {
 } from "lucide-react";
 
 export default function TaskItem({ task, onUpdate, onDelete }) {
+  // expanded controls whether the task details section is visible or not
   const [expanded, setExpanded] = useState(false);
+  // showDeleteDialog controls whether the delete confirmation modal is visible
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  // showDeleteButton controls whether the delete button is visible
   const [showDeleteButton, SetShowDeleteButton] = useState(true);
 
+  /**
+   * Handles changes to the task status.
+   * This function updates the status of the task and triggers the onUpdate callback.
+   *
+   * @param {string} newStatus - The new status to set for the task (e.g., "Completed", "InProgress")
+   */
   const handleStatusChange = (newStatus) => {
     onUpdate({
       ...task,
@@ -21,17 +36,29 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
     });
   };
 
+  /**
+   * Handles task deletion after confirmation.
+   * It triggers the onDelete callback with the task ID and resets the delete-related states.
+   */
   const handleDelete = () => {
     onDelete(task.id);
     setShowDeleteDialog(false);
     SetShowDeleteButton(true);
   };
 
+  /**
+   * Cancels the delete action and hides the confirmation modal.
+   */
   const handleCancel = () => {
     setShowDeleteDialog(false);
     SetShowDeleteButton(true);
   };
 
+  /**
+   * Returns the appropriate icon for the task based on its status.
+   *
+   * @returns {JSX.Element} - Icon representing the current status of the task.
+   */
   const getStatusIcon = () => {
     switch (task.status) {
       case "Completed":
@@ -43,6 +70,12 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
     }
   };
 
+  /**
+   * Returns the appropriate status tag for the task.
+   * Displays a colored tag indicating the task's status.
+   *
+   * @returns {JSX.Element} - Status tag element
+   */
   const getStatusTag = () => {
     switch (task.status) {
       case "Completed":
@@ -56,6 +89,12 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
     }
   };
 
+  /**
+   * Checks if the task is past due based on the current date and the task's due date.
+   * A task is considered past due if its due date is in the past and its status is not "Completed".
+   *
+   * @returns {boolean} - true if the task is overdue, otherwise false.
+   */
   const isPastDue = () => {
     const currentDate = new Date();
     const dueDateFormatted = formatDateTimeZone(task.dueDate, "Europe/London");
@@ -65,6 +104,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
 
   return (
     <div className={`task-item`}>
+      {/* Task header that toggles the details section on click */}
       <div
         className={`task-item-header ${
           isPastDue() ? "task-item-header--overdue" : ""
@@ -93,6 +133,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
         </div>
       </div>
 
+      {/* Task details section */}
       {expanded && (
         <div className="task-item-details">
           <div className="task-item-details--left">

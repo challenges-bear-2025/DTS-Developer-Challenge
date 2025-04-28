@@ -1,3 +1,10 @@
+/**
+ * TaskList component that manages the task list, task creation, and task filtering.
+ *
+ * This component fetches tasks from an API, allows filtering tasks by their status, and
+ * enables users to create, update, or delete tasks.
+ */
+
 import { useEffect, useState } from "react";
 import {
   createTask,
@@ -10,16 +17,29 @@ import TaskItem from "./TaskItem";
 import TaskForm from "./TaskForm";
 
 export default function TaskList() {
+  // State to store list of tasks
   const [tasks, setTasks] = useState([]);
+  // State to manage loading state
   const [isLoading, setIsLoading] = useState(true);
+  // State to manage error state
   const [error, setError] = useState(null);
+  // State to control visibility of the task form
   const [showForm, setShowForm] = useState(false);
+  // State to filter tasks by their status (e.g., "All", "Pending", etc.)
   const [statusFilter, setStatusFilter] = useState("All");
 
+  /**
+   * Effect hook to fetch tasks from the API when the component is mounted.
+   * The tasks are fetched once and stored in the state.
+   */
   useEffect(() => {
     refreshTaskList();
   }, []);
 
+  /**
+   * Fetches tasks from the API and updates the task list state.
+   * Handles errors during the fetch operation.
+   */
   const refreshTaskList = async () => {
     try {
       setIsLoading(true);
@@ -34,6 +54,12 @@ export default function TaskList() {
     }
   };
 
+  /**
+   * Handles the creation of a new task.
+   * Sends the task data to the API and updates the task list state.
+   *
+   * @param {Object} newTask - The task data to create.
+   */
   const handleCreateTask = async (newTask) => {
     try {
       const createdTask = await createTask(newTask);
@@ -44,6 +70,12 @@ export default function TaskList() {
     }
   };
 
+  /**
+   * Handles updating a task's status.
+   * Sends updated task data to the API and updates the task list in state.
+   *
+   * @param {Object} updatedTask - The task with updated information.
+   */
   const handleUpdateTask = async (updatedTask) => {
     try {
       const taskId = updatedTask.id;
@@ -69,6 +101,12 @@ export default function TaskList() {
     }
   };
 
+  /**
+   * Handles the deletion of a task.
+   * Sends the task ID to the API to delete the task and updates the task list state.
+   *
+   * @param {number} taskID - The ID of the task to delete.
+   */
   const handleDeleteTask = async (taskID) => {
     try {
       if (taskID === undefined || taskID === null) {
@@ -82,15 +120,30 @@ export default function TaskList() {
     }
   };
 
+  /**
+   * Filters the tasks based on the selected status filter.
+   *
+   * @returns {Array} - The filtered tasks based on the selected filter.
+   */
   const filteredTasks =
     statusFilter === "All"
       ? tasks
       : tasks.filter((task) => task.status === statusFilter);
 
+  /**
+   * Displays a loading message while tasks are being fetched.
+   *
+   * @returns {JSX.Element} - The loading indicator element.
+   */
   if (isLoading) {
     return <div className="govuk-body-l">Loading tasks...</div>;
   }
 
+  /**
+   * Displays an error message if the tasks failed to load.
+   *
+   * @returns {JSX.Element} - The error message element.
+   */
   if (error) {
     return (
       <div className="govuk-error-summary" data-module="govuk-error-summary">
@@ -119,6 +172,7 @@ export default function TaskList() {
 
   return (
     <div>
+      {/* Task filter and create button */}
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
           <p className="govuk-body-l"> {tasks.length} tasks found</p>
@@ -152,6 +206,7 @@ export default function TaskList() {
           </div>
         </div>
       </div>
+      {/* Task creation form, shown if showForm is true */}
       {showForm && (
         <div>
           <TaskForm
@@ -160,6 +215,7 @@ export default function TaskList() {
           />
         </div>
       )}
+      {/* Displaying task list or error/warning messages */}
       {filteredTasks.length === 0 && tasks.length === 0 ? (
         <div>
           <div className="govuk-warning-text">
@@ -194,6 +250,7 @@ export default function TaskList() {
         </div>
       ) : (
         <div>
+          {/* Display filtered tasks */}
           {filteredTasks.map((task) => (
             <TaskItem
               key={task.id}
