@@ -4,11 +4,14 @@ export default function Header() {
       <div className="govuk-header">
         <div className="govuk-header__container govuk-width-container">
           <div className="govuk-header__logo header-logo">
-            <a href="/" class="govuk-header__link govuk-header__link--homepage">
+            <a
+              href="/"
+              className="govuk-header__link govuk-header__link--homepage"
+            >
               <svg
                 focusable="false"
                 role="img"
-                class="govuk-header__logotype"
+                className="govuk-header__logotype"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 148 30"
                 height="30"
@@ -24,22 +27,26 @@ export default function Header() {
             </a>
           </div>
           <div className=" header-user">
-            <p id="proposition-link" class="header-user-text">
+            <p id="proposition-link" className="header-user-text">
               <span id="current-user">Current User</span>
               <span>:&nbsp;</span>
-              <a href="/sign-out" aria-describedby="current-user" className="govuk-link-logout">
-                 Sign out
+              <a
+                href="/sign-out"
+                aria-describedby="current-user"
+                className="govuk-link-logout"
+              >
+                Sign out
               </a>
             </p>
           </div>
         </div>
       </div>
-      <div class="govuk-phase-banner govuk-width-container">
-        <p class="govuk-phase-banner__content">
-          <strong class="govuk-tag govuk-phase-banner__content__tag">
+      <div className="govuk-phase-banner govuk-width-container">
+        <p className="govuk-phase-banner__content">
+          <strong className="govuk-tag govuk-phase-banner__content__tag">
             Beta
           </strong>
-          <span class="govuk-phase-banner__text">
+          <span className="govuk-phase-banner__text">
             This is not an official GOV.UK service.
           </span>
         </p>

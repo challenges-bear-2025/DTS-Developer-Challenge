@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { formatDate } from "../lib/utils";
+import { formatDateTimeZone } from "../lib/utils";
 import DeleteConfirmationModal from "./modal/DeleteConfirmationModal";
 import {
   ChevronDownIcon,
@@ -11,9 +11,9 @@ import {
 
 export default function TaskItem({ task, onUpdate, onDelete }) {
   const [expanded, setExpanded] = useState(false);
-  const [editing, setEditing] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [showDeleteButton, SetShowDeleteButton] = useState(true);
+
   const handleStatusChange = (newStatus) => {
     onUpdate({
       ...task,
@@ -22,7 +22,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
   };
 
   const handleDelete = () => {
-    onDelete(task.ID);
+    onDelete(task.id);
     setShowDeleteDialog(false);
     SetShowDeleteButton(true);
   };
@@ -56,14 +56,18 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
     }
   };
 
-  const isPastDue =
-    new Date(task.dueDate) < new Date() && task.status !== "Completed";
+  const isPastDue = () => {
+    const currentDate = new Date();
+    const dueDateFormatted = formatDateTimeZone(task.dueDate, "Europe/London");
+    const dueDate = new Date(dueDateFormatted);
+    return dueDate < currentDate && task.status !== "Completed";
+  };
 
   return (
     <div className={`task-item`}>
       <div
         className={`task-item-header ${
-          isPastDue ? "task-item-header--overdue" : ""
+          isPastDue() ? "task-item-header--overdue" : ""
         }`}
         onClick={() => setExpanded(!expanded)}
       >
@@ -76,27 +80,27 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
             {getStatusTag()}
             <span
               className={`task-item-meta--due${
-                isPastDue ? " task-item-meta--due--overdue" : ""
+                isPastDue() ? " task-item-meta--due--overdue" : ""
               }`}
             >
-              Due: {formatDate(task.dueDate)}
-              {isPastDue && " (Overdue)"}
+              Due: {formatDateTimeZone(task.dueDate, "Europe/London")}
+              {isPastDue() && " (Overdue)"}
             </span>
           </div>
         </div>
         <div className="task-item-actions">
           {expanded ? (
-            <ChevronUpIcon className="h-5 w-5 text-gray-600" />
+            <ChevronUpIcon />
           ) : (
-            <ChevronDownIcon className="h-5 w-5 text-gray-600" />
+            <ChevronDownIcon />
           )}
         </div>
       </div>
 
-      {expanded && !editing && (
+      {expanded && (
         <div className="task-item-details">
           <div className="task-item-details--left">
-          {showDeleteDialog && (
+            {showDeleteDialog && (
               <DeleteConfirmationModal
                 onConfirm={handleDelete}
                 onCancel={handleCancel}
@@ -110,7 +114,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
             </div>
             <div className="task-item-details-section">
               <h4 className="govuk-heading-s">Change Status</h4>
-              <div class="govuk-button-group">
+              <div className="govuk-button-group">
                 <button
                   type="button"
                   onClick={() => handleStatusChange("Pending")}
@@ -153,7 +157,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowDeleteDialog(true);
-                  SetShowDeleteButton(false); // Hide button
+                  SetShowDeleteButton(false);
                 }}
               >
                 Delete

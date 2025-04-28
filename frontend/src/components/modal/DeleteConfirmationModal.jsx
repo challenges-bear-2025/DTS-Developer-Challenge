@@ -2,12 +2,12 @@ export default function DeleteConfirmationModal({ onConfirm, onCancel }) {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon" aria-hidden="true">
+        <div className="govuk-warning-text">
+          <span className="govuk-warning-text__icon" aria-hidden="true">
             !
           </span>
-          <strong class="govuk-warning-text__text">
-            <span class="govuk-visually-hidden">Warning</span>
+          <strong className="govuk-warning-text__text">
+            <span className="govuk-visually-hidden">Warning</span>
             Are you sure you want to delete this task?
           </strong>
         </div>

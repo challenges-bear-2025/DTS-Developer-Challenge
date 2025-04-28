@@ -2,7 +2,7 @@ let mockTasks = [
   {
     ID: 1,
     title: "Review case documents",
-    description: "Review all documents for the Smith vs. Jones case before the hearing.",
+    description: "Review all documents for the Smith vs. Jones case before the hearing.Review all documents for the Smith vs. Jones case before the hearing.Review all documents for the Smith vs. Jones case before the hearing.Review all documents for the Smith vs. Jones case before the hearing.Review all documents for the Smith vs. Jones case before the hearing.Review all documents for the Smith vs. Jones case before the hearing.",
     status: "InProgress",
     dueDate: generateDueDate(1)
   },
@@ -47,7 +47,6 @@ export async function createTask(task) {
     const newTask = {
         ID: nextID++,
         ...task,
-        dueDate: task.dueDate || generateDueDate(7)
     };
     mockTasks.push(newTask);
     return simulateDelay({ ...newTask });

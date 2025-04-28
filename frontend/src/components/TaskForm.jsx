@@ -19,10 +19,10 @@ export default function TaskForm({ onSubmit, onCancel }) {
       newErrors.title = "Title is required";
     }
 
-    // Date and Time Validation
     let combinedDueDate;
     const currentDate = new Date();
 
+    // Check that fields correctly populated
     if (!dueDateDay || !dueDateMonth || !dueDateYear) {
       newErrors.dueDate = "Enter your due date";
       if (!dueDateDay) newErrors.dueDateDay = "Due date must include a day";
@@ -36,7 +36,7 @@ export default function TaskForm({ onSubmit, onCancel }) {
       )}-${dueDateDay.padStart(2, "0")}`;
       combinedDueDate = new Date(`${formattedDate}T${dueTime}:00`);
 
-      // Check for real date
+      // Check that it is a real date
       if (isNaN(combinedDueDate.getTime())) {
         newErrors.dueDate = "Due date must be a real date";
       }
@@ -120,7 +120,7 @@ export default function TaskForm({ onSubmit, onCancel }) {
 
         <div className="govuk-form-group">
           <label className="govuk-label" htmlFor="task-description">
-            Task Description 
+            Task Description
           </label>
           <input
             className="govuk-input"
@@ -144,11 +144,18 @@ export default function TaskForm({ onSubmit, onCancel }) {
             aria-describedby="due-date-hint due-date-error"
           >
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
-              <h3 className="govuk-fieldset__heading">When is the task due? <span className="task-form-required">*</span></h3>
+              <h3 className="govuk-fieldset__heading">
+                When is the task due?{" "}
+                <span className="task-form-required">*</span>
+              </h3>
             </legend>
 
             {errors.dueDate && (
-              <p id="due-date-error" data-testid="due-date-error" className="govuk-error-message">
+              <p
+                id="due-date-error"
+                data-testid="due-date-error"
+                className="govuk-error-message"
+              >
                 <span className="govuk-visually-hidden">Error:</span>{" "}
                 {errors.dueDate}
               </p>
