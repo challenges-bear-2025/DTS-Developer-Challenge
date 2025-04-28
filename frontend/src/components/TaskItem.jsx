@@ -89,11 +89,7 @@ export default function TaskItem({ task, onUpdate, onDelete }) {
           </div>
         </div>
         <div className="task-item-actions">
-          {expanded ? (
-            <ChevronUpIcon />
-          ) : (
-            <ChevronDownIcon />
-          )}
+          {expanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
         </div>
       </div>
 
