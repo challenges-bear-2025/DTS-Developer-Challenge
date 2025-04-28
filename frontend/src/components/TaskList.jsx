@@ -141,7 +141,7 @@ export default function TaskList() {
             </div>
             <div className="govuk-grid-column-one-half">
               <button
-                type="submit"
+                type="button"
                 className="govuk-button"
                 data-module="govuk-button"
                 onClick={() => setShowForm(!showForm)}
