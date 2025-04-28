@@ -88,12 +88,10 @@ describe("TaskList Component", () => {
 
     await screen.findByText("Test Task 1");
 
-    // Change filter to "Completed"
     fireEvent.change(screen.getByRole("combobox"), {
       target: { value: "Completed" },
     });
 
-    // Verify filtered task is displayed
     expect(screen.getByText("Test Task 2")).toBeInTheDocument();
     expect(screen.queryByText("Test Task 1")).not.toBeInTheDocument();
   });
@@ -114,7 +112,6 @@ describe("TaskList Component", () => {
   });
 
   test("handleCreateTask adds a new task to the list", async () => {
-    // 1. Setup test data
     const newTask = {
       title: "Test Task 3",
       description: "Test description",
@@ -131,39 +128,26 @@ describe("TaskList Component", () => {
       ...newTask,
     };
 
-    // 2. Mock the API call
     createTask.mockResolvedValueOnce(createdTask);
 
-    // 3. Render the component
     await act(async () => {
       render(<TaskList />);
     });
 
-    // 4. Wait for initial loading to complete
     await waitFor(() => {
       expect(screen.queryByText(/Loading tasks.../i)).not.toBeInTheDocument();
     });
 
-    // 5. Get the initial task count
     const initialTaskCount = screen.getAllByText(/Test Task/i).length;
 
-    // 6. Click the "Create Task" button to show the form
     fireEvent.click(screen.getByText("Create Task"));
 
-    // 7. Find the form element (adjust selectors based on your actual component)
     const form = document.querySelector("form");
-
-    // If you can't find the form directly, you might need to use more specific selectors
-    // const form = screen.getByRole("form") ||
-    //              screen.getByTestId("task-form") ||
-    //              document.querySelector("form");
 
     if (!form) {
       throw new Error("Could not find form element");
     }
 
-    // 8. Fill out the form fields
-    // Find input fields - adjust these selectors based on your actual form
     const titleInput =
       form.querySelector('input[name="title"]') ||
       screen.getByLabelText(/Task Title/i) ||
@@ -188,7 +172,6 @@ describe("TaskList Component", () => {
       form.querySelector('input[name="task-due-time"]') ||
       screen.getByLabelText(/Time/i);
 
-    // Fill in the form fields
     if (titleInput)
       fireEvent.change(titleInput, { target: { value: newTask.title } });
     if (descriptionInput)
@@ -209,10 +192,9 @@ describe("TaskList Component", () => {
       });
     if (dueDateTimeInput)
       fireEvent.change(dueDateTimeInput, {
-        target: { value: `${hours}:${minutes}` }, // If you're only using time up to minutes
+        target: { value: `${hours}:${minutes}` }, 
       });
 
-    // 9. Submit the form
     const submitButton =
       form.querySelector('button[type="submit"]') ||
       screen.getByText(/Create Task/i);
@@ -221,12 +203,10 @@ describe("TaskList Component", () => {
       fireEvent.click(submitButton);
     });
 
-    // 10. Verify createTask was called with the right data
     await waitFor(() => {
       expect(createTask).toHaveBeenCalled();
     });
 
-    // 11. Verify the new task appears in the list
     await waitFor(() => {
       const finalTaskCount = screen.getAllByText(/Test Task /i).length;
       expect(finalTaskCount).toBe(initialTaskCount + 1);
