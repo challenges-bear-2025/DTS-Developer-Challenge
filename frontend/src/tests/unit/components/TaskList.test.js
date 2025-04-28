@@ -122,7 +122,7 @@ describe("TaskList Component", () => {
 
     const [date, time] = newTask.dueDate.split("T");
     const [year, month, day] = date.split("-");
-    const [hours, minutes, seconds] = time.split(":");
+    const [hours, minutes] = time.split(":");
 
     const createdTask = {
       id: 3,

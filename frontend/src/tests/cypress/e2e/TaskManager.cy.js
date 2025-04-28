@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 describe("Task Manager Application", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000");
