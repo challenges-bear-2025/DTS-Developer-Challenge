@@ -33,10 +33,7 @@ public class TaskService {
     public Optional<Task> updateTask(Long ID, Task updatedTask) {
         return taskRepository.findById(ID).map(
                 existingTask -> {
-                    existingTask.setTitle(updatedTask.getTitle());
-                    existingTask.setDescription(updatedTask.getDescription());
                     existingTask.setStatus(updatedTask.getStatus());
-                    existingTask.setDueDate(updatedTask.getDueDate());
                     return taskRepository.save(existingTask);
                 });
     }

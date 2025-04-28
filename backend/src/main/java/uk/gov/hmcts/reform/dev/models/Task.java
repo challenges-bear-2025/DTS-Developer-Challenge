@@ -27,7 +27,6 @@ public class Task {
     private TaskStatus status;
 
     @NotNull(message = "Due date must not be null")
-    @FutureOrPresent(message = "Due date must be in the present or future")
     private LocalDateTime dueDate;
 
     public Task() {}
