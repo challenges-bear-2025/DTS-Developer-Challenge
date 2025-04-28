@@ -1,6 +1,6 @@
 /* eslint-disable testing-library/no-wait-for-multiple-assertions */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import TaskForm from "../../components/TaskForm"; // Adjust the import based on where your component is located
+import TaskForm from "../../../components/TaskForm";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 
@@ -9,7 +9,6 @@ const mock = new MockAdapter(axios);
 
 describe("TaskForm Component", () => {
   beforeEach(() => {
-    // Reset the mock adapter before each test to prevent interference
     mock.reset();
   });
 
@@ -127,11 +126,11 @@ describe("TaskForm Component", () => {
 
     await waitFor(() => {
       expect(handleSubmit).toHaveBeenCalledTimes(1);
-      const submittedTask = handleSubmit.mock.calls[0][0]; // first argument of first call
+      const submittedTask = handleSubmit.mock.calls[0][0];
       expect(submittedTask.title).toBe("New Task");
       expect(submittedTask.description).toBe("Task description");
       expect(submittedTask.status).toBe("Pending");
-      expect(submittedTask.dueDate).toContain("2025-05-15T11:00:00.000Z"); // Due date contains correct date/time
+      expect(submittedTask.dueDate).toContain("2025-05-15T11:00:00.000Z");
     });
   });
 });

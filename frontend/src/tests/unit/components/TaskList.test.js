@@ -8,16 +8,16 @@ import {
   waitFor,
   act,
 } from "@testing-library/react";
-import TaskList from "../../components/TaskList";
+import TaskList from "../../../components/TaskList";
 import {
   fetchTasks,
   createTask,
   fetchTaskByID,
   updateTaskByID,
   deleteTaskByID,
-} from "../../api/taskApi";
+} from "../../../api/taskApi";
 
-jest.mock("../../api/taskApi.js");
+jest.mock("../../../api/taskApi.js");
 
 const mockTasks = [
   {
@@ -36,11 +36,12 @@ const mockTasks = [
   },
 ];
 
-jest.spyOn(global, "fetch").mockResolvedValueOnce({
-  json: () => Promise.resolve(mockTasks),
-});
+// jest.spyOn(global, "fetch").mockResolvedValueOnce({
+//   json: () => Promise.resolve(mockTasks),
+// });
 
 describe("TaskList Component", () => {
+
   beforeEach(() => {
     fetchTasks.mockResolvedValue(mockTasks);
     fetchTaskByID.mockResolvedValue(mockTasks[0]);
